@@ -1,6 +1,194 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+:root {
+  --primary-blue: #e6f4ff;
+  --accent-blue: #2c3e50;
+  --text-white: white;
+  --text-dark: #2c3e50;
+  --border-colour: #b3d9ff;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  background: white;
+}
+
+/* Header and Navigation */
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--accent-blue);
+  border-bottom: 2px solid var(--accent-blue);
+  color: var(--text-white);
+}
+
+#top-header a {
+  color: var(--text-white);
+  text-decoration: none;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0.5rem;
+  justify-content: space-around;
+  background: var(--accent-blue);
+  margin: 0;
+}
+
+nav li {
+  padding: 0.8rem;
+  color: var(--text-white);
+  font-weight: bold;
+}
+
+/* Vehicle Header */
+.vehicle-header {
+  display: flex;
+  align-items: center;
+  min-height: 300px;
+  margin: 1rem;
+  position: relative;
+}
+
+.vehicle-content {
+  flex: 0 0 60%;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-right: -10%;
+  transform: translateX(10%);
+  z-index: 2;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.vehicle-image {
+  flex: 0 0 60%;
+  height: 250px;
+  background: url('/images/vehicles/delorean.jpg') right center/cover;
+  border-radius: 8px;
+  z-index: 1;
+  margin-left: -15%;
+  position: relative;
+}
+
+/* Upgrades Section */
+.upgrades-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  list-style: none;
+}
+
+.upgrades-list li {
+  background: rgba(230, 244, 255, 0.9);
+  border: 2px solid var(--accent-blue);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.upgrades-list img {
+  width: 100%;
+  max-width: 120px;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+/* Reviews Section */
+.reviews-list {
+  list-style: none;
+  padding: 0 1rem;
+}
+
+.reviews-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--accent-blue);
+  color: var(--text-dark);
+}
+
+hr {
+  border: 0;
+  height: 2px;
+  background: var(--accent-blue);
+  margin: 2rem 0;
+}
+
+/* Desktop Styles */
+@media (min-width: 768px) {
+  body {
+    background: url('/images/site/checkerboardg.jpg') repeat;
+  }
+
+  #wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border: 3px solid var(--accent-blue);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .content-sections {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .upgrades {
+    order: 1;
+  }
+
+  .reviews {
+    order: 2;
+  }
+
+  nav ul {
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .vehicle-header {
+    margin: 2rem 0;
+    min-height: 400px;
+  }
+
+  .vehicle-content {
+    flex-basis: 40%;
+    padding: 2rem;
+    margin-right: -10%;
+    transform: translateX(15%);
+  }
+
+  .vehicle-image {
+    flex-basis: 55%;
+    height: 350px;
+    margin-left: -10%;
+  }
+
+  .vehicle-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.8));
+  }
+
+  .upgrades-list img {
+    max-width: 150px;
+  }
+}
+
+/* Footer Styles */
+footer {
+  background: var(--accent-blue);
+  color: var(--text-white);
+  padding: 1.5rem;
+  text-align: center;
 }
