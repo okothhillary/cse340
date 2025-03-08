@@ -121,7 +121,7 @@ hr {
 /* Desktop Styles */
 @media (min-width: 768px) {
   body {
-    background: url('/images/site/checkerboardg.jpg') repeat;
+    background: url('/images/site/small_check.jpg') repeat;
   }
 
   #wrapper {
