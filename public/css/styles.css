@@ -19,13 +19,13 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: var(--accent-blue);
+  background: white;
   border-bottom: 2px solid var(--accent-blue);
   color: var(--text-white);
 }
 
 #top-header a {
-  color: var(--text-white);
+  color: black;
   text-decoration: none;
 }
 
