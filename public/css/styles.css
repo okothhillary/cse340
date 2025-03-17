@@ -29,6 +29,10 @@ body {
   text-decoration: none;
 }
 
+nav a{
+  color: white;
+}
+
 nav ul {
   display: flex;
   list-style: none;
@@ -36,6 +40,7 @@ nav ul {
   justify-content: space-around;
   background: var(--accent-blue);
   margin: 0;
+  color: white;
 }
 
 nav li {
@@ -133,16 +138,17 @@ nav.dynamic-nav ul {
   justify-content: space-around;
   background: var(--accent-blue);
   margin: 0;
+  color: white;
 }
 
 nav.dynamic-nav li {
   padding: 0.8rem;
-  color: var(--text-white);
+  color: white;
   font-weight: bold;
 }
 
 nav.dynamic-nav a {
-  color: var(--text-white);
+  color: white;
   text-decoration: none;
 }
 
