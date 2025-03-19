@@ -1,0 +1,15 @@
+<% //title %>
+    <% if (title) { %>
+        <h1>
+            <%= title %>
+        </h1>
+        <% } else { res.redirect('/') } %>
+        
+
+        <% // Error Message (unescaped) and a touch of humor %>
+        <div class="error-message">
+            <p><%- message %></p>
+            <p>Oops! Something went awry. Our team is already on the case—maybe they need a coffee break to fix it, though!</p>
+        </div>
+
+                
