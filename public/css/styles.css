@@ -29,7 +29,7 @@ body {
   text-decoration: none;
 }
 
-nav a{
+nav a {
   color: white;
 }
 
@@ -205,6 +205,32 @@ nav.dynamic-nav a {
   font-weight: bold;
 }
 
+.vehicle-detail {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  gap: 1rem;
+}
+
+.vehicle-detail img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--border-colour);
+  border-radius: 8px;
+}
+
+.detail-info {
+  background: #f9f9f9;
+  border: 2px solid var(--border-colour);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.detail-info h2 {
+  margin-top: 0;
+  color: var(--accent-blue);
+}
+
 
 /* Desktop Styles */
 @media (min-width: 768px) {
@@ -271,6 +297,20 @@ nav.dynamic-nav a {
   .upgrades-list img {
     max-width: 150px;
   }
+
+  .vehicle-detail {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .vehicle-detail img {
+    max-width: 100%;
+  }
+
+  .detail-info {
+    margin-left: 2rem;
+    flex: 1;
+  }
 }
 
 /* Footer Styles */
@@ -279,6 +319,10 @@ footer {
   color: var(--text-white);
   padding: 1.5rem;
   text-align: center;
+}
+
+footer a {
+  color: var(--text-white);
 }
 
 /* Dynamic Navigation adjustments */
@@ -305,5 +349,3 @@ nav.dynamic-nav ul {
 .namePrice span {
   font-size: 1.1rem;
 }
-
-

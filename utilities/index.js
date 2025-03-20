@@ -58,6 +58,32 @@ Util.buildClassificationGrid = async function (data) {
     return grid
 }
 
+Util.buildVehicleDetail = function (vehicle) {
+    const formattedPrice = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(vehicle.inv_price)
+  
+    const formattedMiles = new Intl.NumberFormat('en-US').format(vehicle.inv_miles)
+  
+    let detail = `
+      <div class="vehicle-detail">
+        <div>
+          <img src="${vehicle.inv_image}" 
+            alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors" />
+        </div>
+        <div class="detail-info">
+          <h2>${vehicle.inv_make} ${vehicle.inv_model} (${vehicle.inv_year})</h2>
+          <p><strong>Price:</strong> ${formattedPrice}</p>
+          <p><strong>Mileage:</strong> ${formattedMiles} miles</p>
+          <p><strong>Color:</strong> ${vehicle.inv_colour}</p>
+          <p><strong>Description:</strong> ${vehicle.inv_description}</p>
+          <p><strong>Classification:</strong> ${vehicle.classification_name}</p>
+        </div>
+      </div>
+    `
+    return detail
+  }
 
 /* ****************************************
  * Middleware For Handling Errors
