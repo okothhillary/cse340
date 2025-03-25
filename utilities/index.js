@@ -5,70 +5,70 @@ const Util = {}
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getNav = async function (req, res, next) {
-    let data = await invModel.getClassifications()
-    //console.log(data)
-    let list = "<ul>"
-    list += '<li><a href="/" title="Home page">Home</a></li>'
-    data.rows.forEach((row) => {
-        list += "<li>"
-        list +=
-            '<a href="/inv/type/' +
-            row.classification_id +
-            '" title="See our inventory of ' +
-            row.classification_name +
-            ' vehicles">' +
-            row.classification_name +
-            "</a>"
-        list += "</li>"
-    })
-    list += "</ul>"
-    return list
+  let data = await invModel.getClassifications()
+  //console.log(data)
+  let list = "<ul>"
+  list += '<li><a href="/" title="Home page">Home</a></li>'
+  data.rows.forEach((row) => {
+    list += "<li>"
+    list +=
+      '<a href="/inv/type/' +
+      row.classification_id +
+      '" title="See our inventory of ' +
+      row.classification_name +
+      ' vehicles">' +
+      row.classification_name +
+      "</a>"
+    list += "</li>"
+  })
+  list += "</ul>"
+  return list
 }
 
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
 Util.buildClassificationGrid = async function (data) {
-    let grid
-    if (data.length > 0) {
-        grid = '<ul id="inv-display">'
-        data.forEach(vehicle => {
-            grid += '<li>'
-            grid += '<a href="../../inv/detail/' + vehicle.inv_id
-                + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model
-                + 'details"><img src="' + vehicle.inv_thumbnail
-                + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
-                + ' on CSE Motors" /></a>'
-            grid += '<div class="namePrice">'
-            grid += '<hr />'
-            grid += '<h2>'
-            grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View '
-                + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
-                + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
-            grid += '</h2>'
-            grid += '<span>$'
-                + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
-            grid += '</div>'
-            grid += '</li>'
-        })
-        grid += '</ul>'
-    } else {
-        grid += '<p class="notice">Ni kama gari zimeenda na Kairo. Iza!</p>'
-    }
-    return grid
+  let grid
+  if (data.length > 0) {
+    grid = '<ul id="inv-display">'
+    data.forEach(vehicle => {
+      grid += '<li>'
+      grid += '<a href="../../inv/detail/' + vehicle.inv_id
+        + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model
+        + 'details"><img src="' + vehicle.inv_thumbnail
+        + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
+        + ' on CSE Motors" /></a>'
+      grid += '<div class="namePrice">'
+      grid += '<hr />'
+      grid += '<h2>'
+      grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View '
+        + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
+        + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
+      grid += '</h2>'
+      grid += '<span>$'
+        + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      grid += '</div>'
+      grid += '</li>'
+    })
+    grid += '</ul>'
+  } else {
+    grid += '<p class="notice">Ni kama gari zimeenda na Kairo. Iza!</p>'
+  }
+  return grid
 }
 
 //vehicle details
 
 Util.buildVehicleDetail = function (vehicle) {
-    const formattedPrice = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(vehicle.inv_price)
-  
-    const formattedMiles = new Intl.NumberFormat('en-US').format(vehicle.inv_miles)
-  
-    let detail = `
+  const formattedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(vehicle.inv_price)
+
+  const formattedMiles = new Intl.NumberFormat('en-US').format(vehicle.inv_miles)
+
+  let detail = `
       <div class="vehicle-detail">
         <div>
           <img src="${vehicle.inv_image}" 
@@ -84,8 +84,8 @@ Util.buildVehicleDetail = function (vehicle) {
         </div>
       </div>
     `
-    return detail
-  }
+  return detail
+}
 
 //building login view
 
@@ -104,6 +104,30 @@ Util.buildLoginView = function () {
     </form>
     <hr>
     <p>Don't have an account? <a href="/account/register">Register</a></p>
+  </div>`;
+};
+
+Util.buildRegisterView = function () {
+  return `
+  <div class="register">
+    <h2>Closer to Owning A Car!</h2>
+    <form action="/account/register" method="post">
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name" name="account_firstname" required>
+      
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name" name="account_lastname" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="account_email" required>
+      
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="account_password" required>
+      
+      <button type="submit">Register</button>
+    </form>
+    <hr>
+    <p>Already have an account? <a href="/account/login">Login</a></p>
   </div>`;
 };
 

@@ -18,6 +18,7 @@ const session = require("express-session")
 const pool = require('./database/')
 const accountController = require("./controllers/accountController")
 const accountRoute = require("./routes/accountRoute")
+const registrationRoute = require("./routes/registrationRoute")
 
 
 /* ***********************
@@ -37,15 +38,10 @@ app.use(session({
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
-
-
-
-
-
 
 
 /* ***********************
@@ -64,7 +60,8 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 app.use("/error", errorRoute)
 app.get("/", utilities.handleErrors(accountController.buildLogin))
-app.use("/account", accountRoute)
+app.use("/account", accountRoute, registrationRoute)
+app.use("/register", registrationRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
