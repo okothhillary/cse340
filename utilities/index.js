@@ -58,6 +58,8 @@ Util.buildClassificationGrid = async function (data) {
     return grid
 }
 
+//vehicle details
+
 Util.buildVehicleDetail = function (vehicle) {
     const formattedPrice = new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -84,6 +86,27 @@ Util.buildVehicleDetail = function (vehicle) {
     `
     return detail
   }
+
+//building login view
+
+Util.buildLoginView = function () {
+  return `
+  <div class="login">
+    <h2>About to Own a Car!</h2>
+    <form action="/account/login" method="post">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="account_email" required>
+      
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="account_password" required>
+      
+      <button type="submit">Login</button>
+    </form>
+    <hr>
+    <p>Don't have an account? <a href="/account/register">Register</a></p>
+  </div>`;
+};
+
 
 /* ****************************************
  * Middleware For Handling Errors

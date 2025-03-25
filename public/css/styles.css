@@ -29,6 +29,12 @@ body {
   text-decoration: none;
 }
 
+h1 {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
 nav a {
   color: white;
 }
@@ -231,6 +237,90 @@ nav.dynamic-nav a {
   color: var(--accent-blue);
 }
 
+.login {
+  background-color: none;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Title */
+.login h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+/* Labels */
+.login label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Inputs */
+.login input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background-color: #292929;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.login input:focus {
+  border-color: var(--accent-blue);
+}
+
+/* Login Button */
+.login button {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--accent-blue);
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  align-self: center;
+}
+
+.login button:hover {
+  background-color: var(--accent-blue);
+}
+
+/* Horizontal line */
+hr {
+  border: none;
+  height: 1px;
+  background: #333;
+  margin: 20px 0;
+}
+
+/* Register link */
+.login p {
+  font-size: 14px;
+}
+
+.login a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login a:hover {
+  text-decoration: underline;
+}
 
 /* Desktop Styles */
 @media (min-width: 768px) {
@@ -311,6 +401,33 @@ nav.dynamic-nav a {
     margin-left: 2rem;
     flex: 1;
   }
+
+  .login {
+    max-width: 450px;
+    padding: 50px;
+    margin: 0 auto;
+    /* Centers the form horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login h2 {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .login input {
+    font-size: 18px;
+    padding: 14px;
+  }
+
+  .login button {
+    font-size: 18px;
+    padding: 16px;
+  }
+
 }
 
 /* Footer Styles */
