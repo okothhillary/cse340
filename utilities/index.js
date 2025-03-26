@@ -119,11 +119,15 @@ Util.buildRegisterView = function () {
       <input type="text" id="last_name" name="account_lastname" required>
       
       <label for="email">Email:</label>
-      <input type="email" id="email" name="account_email" required>
+      <input type="email" id="email" name="account_email" required placeholder="Enter a valid email address">
+
+      <div>
+        <label for="accountPassword">Password:</label> 
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+        <input type="password" id="password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+      </div>
       
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="account_password" required>
-      
+    
       <button type="submit">Register</button>
     </form>
     <hr>
