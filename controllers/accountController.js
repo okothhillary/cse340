@@ -15,13 +15,14 @@ async function buildLogin(req, res, next) {
 
 async function buildRegister(req, res, next) {
   let nav = await utilities.getNav()
-  let register = utilities.buildRegisterView({})
 
   res.render("account/register", {
     title: "Register",
     nav,
-    register,
     errors: null,
+    account_firstname: "",
+    account_lastname: "",
+    account_email: "",
   })
 }
 
@@ -33,13 +34,16 @@ async function registerAccount(req, res) {
   let hashedPassword
   try {
     // regular password and cost (salt is generated automatically)
-    hashedPassword = await bcrypt.hashSync(account_password, 10)
+    hashedPassword = bcrypt.hashSync(account_password, 10)
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the registration.')
     res.status(500).render("account/register", {
       title: "Registration",
       nav,
       errors: null,
+      account_firstname: "",
+      account_lastname: "",
+      account_email: "",
     })
   }
 
@@ -67,17 +71,14 @@ async function registerAccount(req, res) {
   } else {
     req.flash("notice", "Sorry, the registration failed.");
     
-    let register = utilities.buildRegisterView({
-      account_firstname,
-      account_lastname,
-      account_email,
-    });
-
+   
     res.status(501).render("account/register", {
       title: "Registration",
       nav,
-      register,
-      errors: "Registration failed. Please try again."
+      errors: "Registration failed. Please try again.",
+      account_firstname: "",
+      account_lastname: "",
+      account_email: "",
     });
   }
 }

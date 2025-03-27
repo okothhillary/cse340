@@ -1,17 +1,36 @@
 <% if (title) { %>
-    <h1>
-        <%= title %>
-    </h1>
-    <% } else { res.redirect('/') } %>
+    <h1><%= title %></h1>
+<% } else { res.redirect('/') } %>
 
-        <%- messages() %>
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+<% } %>
+
+<div class="register">
+    <h2>Closer to Owning A Car!</h2>
+    
+    <form action="/account/register" method="post">    
+        <label for="first_name">First Name:</label>    
+        <input type="text" id="first_name" name="account_firstname" required value="<%= account_firstname || '' %>">        
+    
+        <label for="last_name">Last Name:</label>      
+        <input type="text" id="last_name" name="account_lastname" required value="<%= account_lastname || '' %>">
+    
+        <label for="email">Email:</label>      
+        <input type="email" id="email" name="account_email" required value="<%= account_email || '' %>">
+    
+        <label for="password">Password:</label>      
+        <input type="password" id="password" name="account_password" required>
         
-        <% if (errors) { %>
-            <ul class="notice">
-           <% errors.array().forEach(error => { %>
-             <li><%= error.msg %></li>
-          <%  }) %>
-           </ul>
-          <% } %>
-          
-            <%- register %>
+        <button type="submit">Register</button>
+    </form>
+
+    <hr>
+    <p>Already have an account? <a href="/account/login">Login</a></p>
+</div>
