@@ -107,32 +107,32 @@ Util.buildLoginView = function () {
   </div>`;
 };
 
-Util.buildRegisterView = function () {
+Util.buildRegisterView = function (locals = {}) {
   return `
   <div class="register">
     <h2>Closer to Owning A Car!</h2>
     <form action="/account/register" method="post">
       <label for="first_name">First Name:</label>
-      <input type="text" id="first_name" name="account_firstname" required>
+      <input type="text" id="first_name" name="account_firstname" required value="${locals.account_firstname || ''}">
       
       <label for="last_name">Last Name:</label>
-      <input type="text" id="last_name" name="account_lastname" required>
+      <input type="text" id="last_name" name="account_lastname" required value="${locals.account_lastname || ''}">
       
       <label for="email">Email:</label>
-      <input type="email" id="email" name="account_email" required placeholder="Enter a valid email address">
+      <input type="email" id="email" name="account_email" required placeholder="Enter a valid email address" value="${locals.account_email || ''}">
 
       <div>
         <label for="accountPassword">Password:</label> 
         <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
-        <input type="password" id="password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+        <input type="password" id="password" name="account_password" required pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{12,}$">
       </div>
       
-    
       <button type="submit">Register</button>
     </form>
     <hr>
     <p>Already have an account? <a href="/account/login">Login</a></p>
-  </div>`;
+  </div>
+  `;
 };
 
 
