@@ -440,6 +440,134 @@ hr {
   text-decoration: underline;
 }
 
+.management {
+  background: none;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.management h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: var(--accent-blue);
+}
+
+.management ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.management li {
+  margin: 10px 0;
+}
+
+.management a {
+  display: inline-block;
+  width: 100%;
+  padding: 14px;
+  background-color: var(--accent-blue);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.management a:hover {
+  background-color: var(--accent-blue);
+}
+
+.add-classification,
+.add-inventory {
+  background: none;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 2rem auto;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-classification h2,
+.add-inventory h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: var(--accent-blue);
+}
+
+.add-classification label,
+.add-inventory label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: black;
+}
+
+.add-classification input,
+.add-classification textarea,
+.add-classification select,
+.add-inventory input,
+.add-inventory textarea,
+.add-inventory select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background-color: transparent;
+  color: black;
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+.add-classification input:focus,
+.add-classification textarea:focus,
+.add-classification select:focus,
+.add-inventory input:focus,
+.add-inventory textarea:focus,
+.add-inventory select:focus {
+  border-color: var(--accent-blue);
+}
+
+.add-classification button,
+.add-inventory button {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--accent-blue);
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  align-self: center;
+}
+
+.add-classification button:hover,
+.add-inventory button:hover {
+  background-color: var(--accent-blue);
+}
+
 /* Desktop Styles */
 @media (min-width: 768px) {
   body {
@@ -568,6 +696,12 @@ hr {
   .register button {
     font-size: 18px;
     padding: 16px;
+  }
+
+  .management,
+  .add-classification,
+  .add-inventory {
+    max-width: 400px;
   }
 
 }

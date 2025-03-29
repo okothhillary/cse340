@@ -66,6 +66,7 @@ app.get("/", utilities.handleErrors(accountController.buildLogin))
 app.use("/account", accountRoute, registrationRoute)
 app.use("/register", registrationRoute)
 
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
@@ -103,3 +104,4 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
+
