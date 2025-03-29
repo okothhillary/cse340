@@ -101,6 +101,11 @@ const host = process.env.HOST
 /* ***********************
  * Log statement to confirm server operation
  *************************/
+app.post("/inv/add-classification", (req, res) => {
+  console.log("Request received:", req.body);
+  res.send("Received!");  // Quick response to test
+});
+
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
