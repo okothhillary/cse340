@@ -1,0 +1,15 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+
+    <% if (messages.notice && messages.notice.length) { %>
+        <div class="flash-notice">
+          <% messages.notice.forEach(function(message) { %>
+            <p><%= message %></p>
+          <% }); %>
+        </div>
+      <% } %>
+      
+      <p>You are Logged In</p>
