@@ -10,7 +10,7 @@ let pool
 if (process.env.NODE_ENV == "development") {
     pool = new Pool({
         connectionString: process.env.DATABASE_URL,
-        max: 20,
+        max: 10,
         ssl: {
             rejectUnauthorized: false,
         },
@@ -33,6 +33,9 @@ if (process.env.NODE_ENV == "development") {
 } else {
     pool = new Pool({
         connectionString: process.env.DATABASE_URL,
-    })
-    module.exports = pool
+        ssl: {
+            rejectUnauthorized: false,  // Ensure SSL is accepted in production
+        },
+    });
+    module.exports = pool;
 }
