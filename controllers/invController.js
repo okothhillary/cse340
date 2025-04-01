@@ -50,11 +50,11 @@ invCont.addNewInventory = async function (req, res, next) {
   let nav = await utilities.getNav();
 
   try {
-    const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body;
+    const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_colour, classification_id } = req.body;
 
     await invModel.insertNewInventory(
       inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, 
-      inv_price, inv_miles, inv_color, classification_id
+      inv_price, inv_miles, inv_colour, classification_id
     );
 
     req.flash("success", `Great! Inventory for ${inv_make} ${inv_model} created!`);
