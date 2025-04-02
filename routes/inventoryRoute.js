@@ -19,4 +19,8 @@ router.get("/add-classification", utilities.handleErrors(invController.buildClas
 router.get("/add-inventory", utilities.handleErrors(invController.buildInventoryForm));
 router.post("/add-inventory", invValidate.addInventoryRules(), invValidate.checkInventoryData, utilities.handleErrors(invController.addNewInventory));
 
+// Route to edit inventory item
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get("/edit/:inventory_id", utilities.handleErrors(invController.buildEditInventoryView));
+router.post("/update/", invValidate.addInventoryRules(), invValidate.checkUpdateData, utilities.handleErrors(invController.updateInventory))
 module.exports = router;

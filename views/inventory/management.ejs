@@ -1,25 +1,39 @@
 <div class="management">
-    <% if (title) { %>
-      <h1><%= title %></h1>
+  <% if (title) { %>
+    <h1>
+      <%= title %>
+    </h1>
     <% } else { res.redirect('/') } %>
-  
-    <%- messages() %>
-  
-    <% if (errors) { %>
-      <ul class="notice">
-        <% errors.array().forEach(error => { %>
-          <li><%= error.msg %></li>
-        <% }) %>
-      </ul>
-    <% } %>
-  
-    <ul>
-      <li>
-        <a href="/inv/add-classification">Add New Classification</a>
-      </li>
-      <li>
-        <a href="/inv/add-inventory">Add New Inventory</a>
-      </li>
-    </ul>
-  </div>
-  
+
+      <%- messages() %>
+
+        <% if (errors) { %>
+          <ul class="notice">
+            <% errors.array().forEach(error=> { %>
+              <li>
+                <%= error.msg %>
+              </li>
+              <% }) %>
+          </ul>
+          <% } %>
+
+            <ul>
+              <li>
+                <a href="/inv/add-classification">Add New Classification</a>
+              </li>
+              <li>
+                <a href="/inv/add-inventory">Add New Inventory</a>
+              </li>
+
+
+              <h2>Manage Inventory</a></h2>
+              <hr>
+              <p>Select a classification from the list below to see the items belonging to the classification.</p>
+
+              <%- classificationSelect %>
+                <hr>
+                <table id="inventoryDisplay"></table>
+                <noscript>JavaScript must be enabed to use this page.</noscript>
+</div>
+
+<script src="../../js/inventory.js"></script>
