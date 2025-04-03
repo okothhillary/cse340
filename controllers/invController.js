@@ -27,11 +27,8 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildInventoryItem = async function (req, res, next) {
   try {
     const item_id = parseInt(req.params.itemId)
-    // the below returns the data.rows
     const item = await invModel.getInventoryItemDetail(item_id)
-    // build page for itemId
     const card = await utilities.buildItemDetailView(item)
-    // maintain the same nav though we need to make another call to db
     let nav = await utilities.getNav()
     const className = item.inv_make + " " + item.inv_model
     res.render("./inventory/item", {
@@ -96,7 +93,6 @@ invCont.addNewClassification = async function (req, res, next) {
     req.flash("success", 'Great! ' + className + ' classification created!')
     res.render("./inventory/management", {
       title: "Management",
-      // title: className + " vehicles",
       nav,
       errors: null,
     })
