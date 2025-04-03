@@ -117,4 +117,23 @@ async function updateInventoryItem(
   }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, insertClassification, insertNewInventory, updateInventoryItem };
+
+async function deleteItem(
+  inv_id) {
+  try {
+    const sql = `
+      DELETE FROM public.inventory WHERE inv_id = $1 RETURNING *;
+    `;
+
+    const data = await pool.query(sql, [inv_id
+    ]);
+
+    return data.rows[0];
+  } catch (error) {
+    console.error("❌ Error updating inventory item:", error.message);
+    throw error;
+  }
+}
+
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, insertClassification, insertNewInventory, updateInventoryItem, deleteItem };
