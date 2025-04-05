@@ -181,40 +181,40 @@ async function getUpdateAccountView(req, res, next) {
 async function updateAccountView(req, res, next) {
   let nav = await utilities.getNav()
   const {
-      account_firstname,
-      account_lastname,
-      account_email,
-      account_id
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_id
   } = req.body
 
-  console.log("data: ", {account_firstname, account_lastname, account_email, account_id})
+  console.log("data: ", { account_firstname, account_lastname, account_email, account_id })
 
   const updateResult = await accountModel.updateAccount(
-      account_firstname,
-      account_lastname,
-      account_email,
-      account_id
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_id
   )
   console.log(updateResult)
 
   if (updateResult) {
-    
-      res.locals.accountData = updateResult
-      req.flash("notice", `Information for ${updateResult.account_firstname + ' ' + updateResult.account_lastname} was successfully updated.`)
-      res.redirect("/account/")
+
+    res.locals.accountData = updateResult
+    req.flash("notice", `Information for ${updateResult.account_firstname + ' ' + updateResult.account_lastname} was successfully updated.`)
+    res.redirect("/account/")
   } else {
-      const accountData = await accountModel.getAccountByEmail(account_email)
-      if (!accountData) {
-          req.flash("notice", "Sorry, the updating your account failed.")
-          res.status(500).render("account/login", {
-              title: "Update Account",
-              nav,
-              
-              errors: null,
-              account_email,
-          })
-          return
-      }
+    const accountData = await accountModel.getAccountByEmail(account_email)
+    if (!accountData) {
+      req.flash("notice", "Sorry, the updating your account failed.")
+      res.status(500).render("account/login", {
+        title: "Update Account",
+        nav,
+
+        errors: null,
+        account_email,
+      })
+      return
+    }
   }
 }
 
@@ -248,7 +248,7 @@ async function passwordUpdateHandler(req, res, next) {
   res.locals.accountData = accountData
   if (accountData) {
     req.flash("notice", `Your password has been changed`)
-    return res.redirect("/account/") 
+    return res.redirect("/account/")
   } else {
     req.flash("notice", "Sorry, the update of the password failed.")
     return res.status(501).render("account/account-management", {
@@ -265,3 +265,5 @@ async function accountLogout(req, res) {
 }
 
 module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, accountLogout, buildAccountView, passwordUpdateHandler, updateAccountView, getUpdateAccountView }
+
+//this thing makes me cry
