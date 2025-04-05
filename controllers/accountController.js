@@ -231,7 +231,7 @@ async function passwordUpdateHandler(req, res, next) {
   } catch (error) {
     res.locals.accountData = accountData
     req.flash("notice", 'Sorry, there was an error updating the password.')
-    res.status(500).render("account/account-management", {
+    return res.status(500).render("account/account-management", {
       title: "Update Information",
       nav,
       errors: null,
@@ -242,32 +242,21 @@ async function passwordUpdateHandler(req, res, next) {
     accountData = await accountModel.updatePassword(account_id, hashedPassword)
     console.log("account", accountData)
   } catch (error) {
-    console.error('error ' + error)
+    console.error('Error updating password:', error)
   }
 
   res.locals.accountData = accountData
   if (accountData) {
-    req.flash(
-      "notice",
-      `Your password has been changed`
-    )
-    res.redirect("/account/")
-
-
-    res.status(201).render("account/account-management", {
-      title: "Update Information",
-      nav,
-      errors: null,
-    })
+    req.flash("notice", `Your password has been changed`)
+    return res.redirect("/account/") 
   } else {
     req.flash("notice", "Sorry, the update of the password failed.")
-    res.status(501).render("account/account-management", {
+    return res.status(501).render("account/account-management", {
       title: "Update Information",
       nav
     })
   }
 }
-
 
 async function accountLogout(req, res) {
   res.clearCookie("jwt")
