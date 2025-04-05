@@ -49,6 +49,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.use(utilities.checkJWTToken)
+app.use(utilities.checkLogin)
+
 /* ***********************
  * View Engine and Templates
  *************************/

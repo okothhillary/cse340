@@ -1,18 +1,17 @@
 require("dotenv").config()
-const jwt = require("jsonwebtoken")
-const invModel = require("../models/inventory-model")
-const Util = {}
+const jwt = require("jsonwebtoken");
+const invModel = require("../models/inventory-model");
+const Util = {};
 
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getNav = async function (req, res, next) {
-  let data = await invModel.getClassifications()
-  //console.log(data)
-  let list = "<ul>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
+  let data = await invModel.getClassifications();
+  let list = "<ul>";
+  list += '<li><a href="/" title="Home page">Home</a></li>';
   data.rows.forEach((row) => {
-    list += "<li>"
+    list += "<li>";
     list +=
       '<a href="/inv/type/' +
       row.classification_id +
@@ -20,55 +19,51 @@ Util.getNav = async function (req, res, next) {
       row.classification_name +
       ' vehicles">' +
       row.classification_name +
-      "</a>"
-    list += "</li>"
-  })
-  list += "</ul>"
-  return list
-}
+      "</a>";
+    list += "</li>";
+  });
+  list += "</ul>";
+  return list;
+};
 
-/* **************************************
-* Build the classification view HTML
-* ************************************ */
 Util.buildClassificationGrid = async function (data) {
-  let grid
+  let grid;
   if (data.length > 0) {
-    grid = '<ul id="inv-display">'
+    grid = '<ul id="inv-display">';
     data.forEach(vehicle => {
-      grid += '<li>'
+      grid += '<li>';
       grid += '<a href="../../inv/detail/' + vehicle.inv_id
         + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model
         + 'details"><img src="' + vehicle.inv_thumbnail
         + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
-        + ' on CSE Motors" /></a>'
-      grid += '<div class="namePrice">'
-      grid += '<hr />'
-      grid += '<h2>'
+        + ' on CSE Motors" /></a>';
+      grid += '<div class="namePrice">';
+      grid += '<hr />';
+      grid += '<h2>';
       grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View '
-        + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
-        + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
-      grid += '</h2>'
+        + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">';
+      grid += vehicle.inv_make + ' ' + vehicle.inv_model + '</a>';
+      grid += '</h2>';
       grid += '<span>$'
-        + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
-      grid += '</div>'
-      grid += '</li>'
-    })
-    grid += '</ul>'
+        + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>';
+      grid += '</div>';
+      grid += '</li>';
+    });
+    grid += '</ul>';
   } else {
-    grid += '<p class="notice">Ni kama gari zimeenda na Kairo. Iza!</p>'
+    grid += '<p class="notice">No vehicles available at the moment.</p>';
   }
-  return grid
+  return grid;
 }
 
-//vehicle details
-
+// vehicle details
 Util.buildVehicleDetail = function (vehicle) {
-  const formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  }).format(vehicle.inv_price)
+  const formattedPrice = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(vehicle.inv_price);
 
-  const formattedMiles = new Intl.NumberFormat('en-US').format(vehicle.inv_miles)
+  const formattedMiles = new Intl.NumberFormat("en-US").format(vehicle.inv_miles);
 
   let detail = `
       <div class="vehicle-detail">
@@ -85,12 +80,35 @@ Util.buildVehicleDetail = function (vehicle) {
           <p><strong>Classification:</strong> ${vehicle.classification_name}</p>
         </div>
       </div>
-    `
-  return detail
+    `;
+  return detail;
+};
+
+Util.buildItemDetailView = async function (data) {
+  let card = ''
+  if (data) {
+    // The make, model, year and price should be prominent in the view. All descriptive data must also be displayed.
+    card =
+      `
+      <div class="inv">
+       <img id="inv-img" src="${data.inv_image}" alt="${data.inv_make} ${data.inv_model}">
+       <div id="inv-display-detail">
+        <h2>${data.inv_make} ${data.inv_model}</h2>
+        <p id="inv-year"><strong>Year:</strong> ${data.inv_year}</p>
+        <p id="inv-miles"><strong>Miles:</strong> ${formatToMileage(data.inv_miles)}</p>
+        <p id="inv-color"><strong>Color:</strong> ${data.inv_colour}</p>
+        <p id="inv-price"><strong>Price:</strong> ${formatToDolar(parseInt(data.inv_price))}</p>
+        <p id="inv-description">${data.inv_description}</p>
+       </div>
+      </div>
+      `
+  } else {
+    card = '<p class="notice">Sorry, no matching vehicle could be found.</p>'
+  }
+  return card
 }
 
 //building login view
-
 Util.buildLoginView = function () {
   return `
   <div class="login">
@@ -107,8 +125,7 @@ Util.buildLoginView = function () {
     <hr>
     <p>Don't have an account? <a href="/account/register">Register</a></p>
   </div>`;
-}
-
+};
 
 Util.buildClassificationList = async function (classification_id = null) {
   let data = await invModel.getClassifications()
@@ -128,44 +145,82 @@ Util.buildClassificationList = async function (classification_id = null) {
   classificationList += "</select>"
   return classificationList
 }
-
 /* ****************************************
  * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
- **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
-Util.checkJWTToken = (req, res, next) => {
-  if (req.cookies.jwt) {
-    jwt.verify(
-      req.cookies.jwt,
-      process.env.ACCESS_TOKEN_SECRET,
-      function (err, accountData) {
-        if (err) {
-          req.flash("Please log in")
-          res.clearCookie("jwt")
-          return res.redirect("/account/login")
-        }
-        res.locals.accountData = accountData
-        res.locals.loggedin = 1
-        next()
-      })
-  } else {
-    next()
-  }
-}
+ * **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 /* ****************************************
- *  Check Login
- * ************************************ */
-Util.checkLogin = (req, res, next) => {
-  if (res.locals.loggedin) {
-    next()
+ * Middleware to check if the user is logged in (JWT token)
+ **************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(req.cookies.jwt, process.env.ACCESS_TOKEN_SECRET, function (err, accountData) {
+      if (err) {
+        req.flash("notice", "Please log in");
+        res.clearCookie("jwt");
+        return res.redirect("/account/login");
+      }
+      res.locals.accountData = accountData;
+      console.log("accountData:", res.locals.accountData)
+      res.locals.loggedin = 1;
+      next();
+    });
   } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
+    next();
   }
- }
+};
 
-module.exports = Util
+/* ****************************************
+ * Middleware to check if the user is logged in (Check Login)
+ **************************************** */
+Util.checkLogin = (req, res, next) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      res.locals.accountData = decoded;
+      res.locals.loggedin = true;
+    } catch (err) {
+      res.locals.accountData = null;
+      res.locals.loggedin = false;
+    }
+  } else {
+    res.locals.accountData = null;
+    res.locals.loggedin = false;
+  }
+  next();
+};
+
+/* ****************************************
+ * Middleware to check if the user has required role (checkRole)
+ **************************************** */
+Util.checkRole = (requiredRoles = []) => {
+  return (req, res, next) => {
+    const token = req.cookies.jwt;
+
+    if (!token) {
+      req.flash("notice", "You must be logged in to access this page.");
+      return res.redirect("/account/login");
+    }
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decodedToken) => {
+      if (err) {
+        req.flash("notice", "Invalid or expired token. Please log in again.");
+        return res.redirect("/account/login");
+      }
+
+      // Check if the user has the required role
+      if (!requiredRoles.includes(decodedToken.role)) {
+        req.flash("notice", "You do not have permission to access that page.");
+        return res.redirect("/");
+      }
+
+      // Attach user data to request object
+      req.user = decodedToken;
+      next();
+    });
+  };
+};
+
+module.exports = Util;

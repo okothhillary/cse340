@@ -1,0 +1,86 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+<% } else { res.redirect('/') } %>
+
+<%- messages() %>
+
+<% if (errors && errors.length > 0) { %>
+    <ul class="notice">
+        <% errors.forEach(error => { %>
+            <li>
+                <%= error.msg %>
+            </li>
+        <% }) %>
+    </ul>
+<% } %>
+
+<div class="add-inventory">
+    <h1>You can change your information here</h1>
+
+    <% if (accountData) { %>
+        <form action="/account/update" method="POST">
+            <fieldset>
+                <legend>Account Update</legend>
+
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="account_firstname" value="<%= accountData.account_firstname %>" required>
+                <% if (errors && errors.first_name) { %>
+                    <div class="error">
+                        <%= errors.first_name %>
+                    </div>
+                <% } %>
+
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="account_lastname" value="<%= accountData.account_lastname %>" required>
+                <% if (errors && errors.last_name) { %>
+                    <div class="error">
+                        <%= errors.last_name %>
+                    </div>
+                <% } %>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="account_email" value="<%= accountData.account_email %>" required>
+                <% if (errors && errors.email) { %>
+                    <div class="error">
+                        <%= errors.email %>
+                    </div>
+                <% } %>
+
+                <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+
+                <button type="submit">Update Account</button>
+            </fieldset>
+        </form>
+        <hr>
+    <% } else { %>
+        <p>No account data found to update.</p>
+    <% } %>
+
+    <form id="updatePasswordForm" action="/account/password" method="post">
+        <fieldset>
+            <legend>Change Password</legend>
+            <label for="accountPasswordUpdate">Password</label>
+            <small id="invalidInputUpdate">By entering a password it will change the current
+                password. There must be at least 12 characters, one must be a
+                number,
+                one
+                must
+                be a
+                lowercase letter, one must be a capital letter, and one must be a
+                non-alphanumeric
+                character.</small>
+            <input required name="account_password" id="accountPasswordUpdate"
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                type="password" minlength="12">
+            <input type="hidden" name="account_id"
+                value="<%= locals.accountData.account_id %>" />
+            <input id="updatePasswordSubmit" type="submit" value="Change Password" />
+        </fieldset>
+    </form>
+
+
+</div>
+
+<script src="../../js/inv-update.js"></script>

@@ -27,8 +27,8 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildInventoryItem = async function (req, res, next) {
   try {
     const item_id = parseInt(req.params.itemId)
-    const item = await invModel.getInventoryItemDetail(item_id)
-    const card = await utilities.buildItemDetailView(item)
+    const item = await invModel.getInventoryById(item_id)
+    const card = await utilities.buildVehicleDetail(item)
     let nav = await utilities.getNav()
     const className = item.inv_make + " " + item.inv_model
     res.render("./inventory/item", {
@@ -115,6 +115,7 @@ invCont.buildManagement = async function (req, res, next) {
     res.render("inventory/management", {
       title: "Management",
       nav,
+      accountData: res.locals.accountData,
       classificationSelect,
       errors: null,
     })

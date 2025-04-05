@@ -1,25 +1,38 @@
-const express = require("express")
-const router = new express.Router()
-const accountController = require("../controllers/accountController")
-const utilities = require("../utilities")
-const regValidate = require('../utilities/account-validation')
+const express = require("express");
+const router = new express.Router();
+const accountController = require("../controllers/accountController");
+const utilities = require("../utilities");
+const regValidate = require('../utilities/account-validation');
 
-router.get("/login", utilities.handleErrors(accountController.buildLogin))
+// Apply checkJWTToken globally for all routes that need account data
+// It checks if the user is logged in and sets `accountData` in res.locals
+router.use(utilities.checkJWTToken);
 
+// Login view
+router.get("/login", utilities.handleErrors(accountController.buildLogin));
+
+// Login post route
 router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
-)
+);
 
+// Registration post route
 router.post(
-    "/register",
-    regValidate.registationRules(),
-    regValidate.checkRegData,
-    utilities.handleErrors(accountController.registerAccount)
-)
+  "/register",
+  regValidate.registationRules(),
+  regValidate.checkRegData,
+  utilities.handleErrors(accountController.registerAccount)
+);
 
-router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountView))
-  
+// Account management view (requires login)
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountView));
+router.get('/update/:accountId', utilities.handleErrors(accountController.getUpdateAccountView));
+router.post('/update', regValidate.updateRules(), regValidate.checkUpdateData, utilities.handleErrors(accountController.updateAccountView));
+router.post('/password', regValidate.passwordRules(), regValidate.checkUpdatePassword, utilities.handleErrors(accountController.passwordUpdateHandler));
+// Logout route
+router.get("/logout", utilities.handleErrors(accountController.accountLogout));
+
 module.exports = router;
