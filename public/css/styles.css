@@ -22,6 +22,8 @@ body {
   background: white;
   border-bottom: 2px solid var(--accent-blue);
   color: var(--text-white);
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 #top-header a {
@@ -47,12 +49,14 @@ nav ul {
   background: var(--accent-blue);
   margin: 0;
   color: white;
+  flex-wrap: wrap;
 }
 
 nav li {
   padding: 0.8rem;
   color: var(--text-white);
   font-weight: bold;
+  white-space: nowrap;
 }
 
 #messages {
@@ -600,6 +604,16 @@ hr {
   nav ul {
     justify-content: center;
     gap: 2rem;
+    
+    
+  }
+
+  #top-header {
+    justify-content: center; 
+  }
+
+  #top-header a {
+    margin-bottom: 0.5rem;
   }
 
   .vehicle-header {
