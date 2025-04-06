@@ -3,32 +3,40 @@
 </h1>
 
 
-<%- messages() %>
+<% if (messages.notice && messages.notice.length) { %>
+    <div class="notice">
+        <% messages.notice.forEach(function(message) { %>
+            <p>
+                <%= message %>
+            </p>
+            <% }); %>
+    </div>
+    <% } %>
 
-    <% if (errors) { %>
-        <ul class="notice">
-            <% errors.array().forEach(error=> { %>
-                <li>
-                    <%= error.msg %>
-                </li>
-                <% }) %>
-        </ul>
-        <% } %>
+        <% if (errors) { %>
+            <ul class="notice">
+                <% errors.array().forEach(error=> { %>
+                    <li>
+                        <%= error.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
 
-            <div class="add-classification">
-                <h2>New Stuff Coming in!</h2>
+                <div class="add-classification">
+                    <h2>New Stuff Coming in!</h2>
 
-                <form action="/inv/classification" method="post">
-                    <label for="classification_name">Classification Name:</label>
-                    <input type="text" id="classification_name" name="classification_name" required
-                        pattern="^[A-Za-z0-9]+$"
-                        title="Only letters and numbers are allowed, no spaces or special characters.">
-                    <button type="submit">Add Classification</button>
-                </form>
+                    <form action="/inv/classification" method="post">
+                        <label for="classification_name">Classification Name:</label>
+                        <input type="text" id="classification_name" name="classification_name" required
+                            pattern="^[A-Za-z0-9]+$"
+                            title="Only letters and numbers are allowed, no spaces or special characters.">
+                        <button type="submit">Add Classification</button>
+                    </form>
 
-                <hr>
+                    <hr>
 
-                <a href="/inv">Back to Management</a>
+                    <a href="/inv/management">Back to Management</a>
 
-                <hr>
-            </div>
+                    <hr>
+                </div>

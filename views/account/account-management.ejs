@@ -3,14 +3,13 @@
 <% } else { res.redirect('/') } %>
 
 <% if (messages.notice && messages.notice.length) { %>
-  <div class="flash-notice">
+  <div class="notice">
     <% messages.notice.forEach(function(message) { %>
       <p><%= message %></p>
     <% }); %>
   </div>
 <% } %>
 
-<p>You are Logged In</p>
 
 <% if (locals.loggedin && locals.accountData) { %>
   <h2>Welcome, <%= locals.accountData.first_name %></h2>

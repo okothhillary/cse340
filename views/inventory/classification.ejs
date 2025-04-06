@@ -7,6 +7,14 @@
 
             <% //messages %>
 
-                <%# messages() %>
+                <% if (messages.notice && messages.notice.length) { %>
+                    <div class="notice">
+                        <% messages.notice.forEach(function(message) { %>
+                            <p>
+                                <%= message %>
+                            </p>
+                            <% }); %>
+                    </div>
+                    <% } %>
 
-                    <%- grid %>
+                        <%- grid %>

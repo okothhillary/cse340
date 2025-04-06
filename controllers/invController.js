@@ -89,12 +89,14 @@ invCont.addNewClassification = async function (req, res, next) {
     const className = data.rows[0].classification_name
 
     nav = await utilities.getNav()
+    const classificationSelect = await utilities.buildClassificationList();
 
     req.flash("success", 'Great! ' + className + ' classification created!')
     res.render("./inventory/management", {
       title: "Management",
       nav,
       errors: null,
+      classificationSelect
     })
   } catch (error) {
     let nav = await utilities.getNav()
@@ -202,7 +204,7 @@ invCont.updateInventory = async function (req, res, next) {
     if (updateResult) {
       const itemName = updateResult.inv_make + " " + updateResult.inv_model
       req.flash("notice", `The ${itemName} was successfully updated.`)
-      res.redirect("/inv/")
+      res.redirect("/inv/management")
     } else {
       const classificationSelect = await utilities.buildClassificationList(classification_id)
       const itemName = `${inv_make} ${inv_model}`
@@ -340,7 +342,8 @@ invCont.deleteItemHandler = async function (req, res, next) {
     if (updateResult) {
       const itemName = updateResult.inv_make + " " + updateResult.inv_model
       req.flash("notice", `The ${itemName} was successfully deleted.`)
-      res.redirect("/inv/")
+      res.redirect("/inv/management")
+
     } else {
       const classificationSelect = await utilities.buildClassificationList(classification_id)
       const itemName = `${inv_make} ${inv_model}`
