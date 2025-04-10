@@ -3,6 +3,9 @@ const utilities = require("../utilities/")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const { localsName } = require("ejs")
+accountController = {}
+
 
 // Login view
 async function buildLogin(req, res, next) {
@@ -264,6 +267,45 @@ async function accountLogout(req, res) {
   return res.redirect("/")
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, accountLogout, buildAccountView, passwordUpdateHandler, updateAccountView, getUpdateAccountView }
+//admin management view
+
+async function buildAdminManagement(req, res, next) {
+  try {
+    let nav = await utilities.getNav()
+    const accounts = await accountModel.getAllAccounts()
+    res.render("./account/admin", {
+      title: "Accounts Management",
+      nav,
+      accounts,
+      errors: null,
+    })
+  } catch (error) {
+    console.error("Error ", error.message)
+    next(error)
+  }
+}
+
+//Delete process
+
+async function deleteAccount(req, res, next) {
+  try {
+    let accountId = parseInt(req.params.accountId)
+    let nav = await utilities.getNav()
+    const accountDeleted = await accountModel.deleteAccount(accountId)
+    // here I am getting the remaining accounts
+    const accounts = await accountModel.getAllAccounts()
+    req.flash("success", `Account for ${accountDeleted.account_firstname + ' ' + accountDeleted.account_lastname} was successfully deleted.`)
+    res.render("./account/admin", {
+      title: "Accounts Management",
+      nav,
+      accounts,
+      errors: null,
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, accountLogout, buildAccountView, passwordUpdateHandler, updateAccountView, getUpdateAccountView, buildAdminManagement, deleteAccount }
 
 //this thing makes me cry

@@ -572,6 +572,43 @@ hr {
   background-color: var(--accent-blue);
 }
 
+table.admin-accounts {
+  display: block;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+table.admin-accounts thead {
+  display: none;
+}
+
+table.admin-accounts tbody,
+table.admin-accounts tr,
+table.admin-accounts td {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+table.admin-accounts tr {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+table.admin-accounts td {
+  padding: 0.5rem;
+  position: relative;
+}
+
+table.admin-accounts td:before {
+  content: attr(data-label);
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #555;
+}
+
 /* Desktop Styles */
 @media (min-width: 768px) {
   body {
@@ -713,6 +750,31 @@ hr {
   .add-classification,
   .add-inventory {
     max-width: 400px;
+  }
+  table.admin-accounts {
+    display: table;
+    width: 100%;
+  }
+  table.admin-accounts thead {
+    display: table-header-group;
+  }
+  table.admin-accounts tbody {
+    display: table-row-group;
+  }
+  table.admin-accounts tr {
+    display: table-row;
+    border: none;
+    margin-bottom: 0;
+  }
+  table.admin-accounts td,
+  table.admin-accounts th {
+    display: table-cell;
+    padding: 1rem;
+    border: 1px solid #ccc;
+  }
+  table.admin-accounts td:before {
+    content: "";
+    display: none;
   }
 
 }
