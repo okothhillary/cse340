@@ -18,10 +18,10 @@
         <% if (locals.loggedin && locals.accountData) { %>
           <h2>Welcome, <%= locals.accountData.first_name %>
           </h2>
-          <% if (locals.accountData.role==="Employee" || locals.accountData.role==="Admin" ) { %>
+          <% if (locals.accountData.role ==="Employee" || locals.accountData.role ==="Admin" ) { %>
             <h3>Inventory Management</h3>
             <p><a href="/inv/management">Go to Inventory Management</a></p>
-            <% if (locals.accountData.role=='Admin' ) { %>
+            <% if (locals.accountData.role =='Admin' ) { %>
               <h3>Accounts Management</h3>
               <p><a href="/account/admin">Manage Accounts</a></p>
               <% } %>

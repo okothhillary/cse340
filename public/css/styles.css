@@ -572,6 +572,8 @@ hr {
   background-color: var(--accent-blue);
 }
 
+/*accounts management page*/
+
 table.admin-accounts {
   display: block;
   width: 100%;
@@ -608,6 +610,7 @@ table.admin-accounts td:before {
   margin-bottom: 0.3rem;
   color: #555;
 }
+
 
 /* Desktop Styles */
 @media (min-width: 768px) {

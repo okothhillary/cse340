@@ -13,8 +13,8 @@ validate.addClassificationRules = () => {
             .trim()
             .escape()
             .notEmpty()
-            .matches(/^[a-zA-Z0-9\s]*$/) // enforce the pattern on the server-side as well
-            .withMessage("Please provide an alphanumeric classification name"), // on error this message is sent.
+            .matches(/^[a-zA-Z0-9\s]*$/)
+            .withMessage("Please provide an alphanumeric classification name"),
     ]
 }
 
@@ -29,8 +29,8 @@ validate.addInventoryRules = () => {
             .escape()
             .notEmpty()
             .isString()
-            .matches(/^[a-zA-Z\s]*$/) // enforce the pattern on the server-side as well
-            .withMessage("Please provide a valid inventory make"), // on error this message is sent.
+            .matches(/^[a-zA-Z\s]*$/)
+            .withMessage("Please provide a valid inventory make"), 
 
         // inv_model is required and must be a string
         body("inv_model")
@@ -38,8 +38,8 @@ validate.addInventoryRules = () => {
             .escape()
             .notEmpty()
             .isString()
-            .matches(/^[a-zA-Z\s]*$/) // enforce the pattern on the server-side as well
-            .withMessage("Please provide a valid inventory model"), // on error this message is sent.
+            .matches(/^[a-zA-Z\s]*$/) 
+            .withMessage("Please provide a valid inventory model"),
 
         // inv_year is required and must be a string
         body("inv_year")
@@ -80,7 +80,7 @@ validate.addInventoryRules = () => {
             .escape()
             .notEmpty()
             .isNumeric()
-            .withMessage("Please provide a valid inventory price"), // on error this message is sent.
+            .withMessage("Please provide a valid inventory price"), 
 
         // inv_miles is required and must be a string
         body("inv_miles")
@@ -88,13 +88,13 @@ validate.addInventoryRules = () => {
             .escape()
             .notEmpty()
             .isNumeric()
-            .withMessage("Please provide a valid inventory miles"), // on error this message is sent.
+            .withMessage("Please provide a valid inventory miles"), 
 
         body("inv_colour")
             .trim()
             .escape()
             .notEmpty()
-            .withMessage("Please provide a valid inventory color"), // on error this message is sent.
+            .withMessage("Please provide a valid inventory color"), 
 
         body("classification_id")
             .trim()
@@ -107,8 +107,6 @@ validate.addInventoryRules = () => {
 validate.checkInventoryData = async (req, res, next) => {
   const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_colour, classification_id } = req.body
   let errors = []
-  //  calls the express-validator "validationResult" function and sends the request object (containing all the incoming data) as a parameter. 
-  // All errors, if any, will be stored into the errors array.
   errors = validationResult(req)
   if (!errors.isEmpty()) {
       let nav = await utilities.getNav()

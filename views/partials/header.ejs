@@ -10,6 +10,10 @@
       <a href="/account/update/<%= locals.accountData.id %>" title="Update Account Information">
         Update Account Information |
       </a>
+      <% if (locals.accountData.role =='Admin' ) { %>
+        <a href="/account/admin">Manage Accounts |</a>
+        <% } %>
+
       <a href="/account/logout" title="Click to log out">Logout</a>
     <% } else { %>
       <a href="/account/login" title="Click to log in">My Account</a>
