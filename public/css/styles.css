@@ -591,6 +591,11 @@ hr {
   background-color: var(--accent-blue);
 }
 
+.updatePasswordForm button {
+  color: white;
+  background-color: var(--accent-blue);
+}
+
 /*accounts management page*/
 
 table.admin-accounts {
