@@ -13,6 +13,16 @@ body {
   background: white;
 }
 
+h1,
+h2,
+h3,
+p,
+.notice {
+  text-align: center;
+}
+
+
+
 /* Header and Navigation */
 #top-header {
   display: flex;
@@ -653,8 +663,8 @@ table.admin-accounts td:before {
   nav ul {
     justify-content: center;
     gap: 2rem;
-    
-    
+
+
   }
 
 
@@ -763,27 +773,33 @@ table.admin-accounts td:before {
   .add-inventory {
     max-width: 400px;
   }
+
   table.admin-accounts {
     display: table;
     width: 100%;
   }
+
   table.admin-accounts thead {
     display: table-header-group;
   }
+
   table.admin-accounts tbody {
     display: table-row-group;
   }
+
   table.admin-accounts tr {
     display: table-row;
     border: none;
     margin-bottom: 0;
   }
+
   table.admin-accounts td,
   table.admin-accounts th {
     display: table-cell;
     padding: 1rem;
     border: 1px solid #ccc;
   }
+
   table.admin-accounts td:before {
     content: "";
     display: none;
